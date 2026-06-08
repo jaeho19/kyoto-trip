@@ -1,7 +1,7 @@
 // Runtime smoke test (Design §8 L2). Uses system Chrome via Playwright.
 const { chromium } = require('playwright');
 
-const BASE = 'http://127.0.0.1:8731/';
+const BASE = process.env.BASE || 'http://127.0.0.1:8731/';
 const EXPECT_PLACES = 16;   // Object.keys(TRIP.places)
 const EXPECT_MARKERS = 16;  // all places have lat/lng
 
