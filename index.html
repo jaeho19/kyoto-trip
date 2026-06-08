@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>교토 · 히메지 · 고베 여행</title>
+  <meta name="description" content="오프라인 동작 · 저작권 안전 · 간사이 5일 여행 PWA" />
+  <meta name="theme-color" content="#b5462f" />
+  <link rel="manifest" href="./manifest.webmanifest" />
+  <link rel="icon" href="./images/icon-192.png" />
+  <link rel="apple-touch-icon" href="./images/icon-192.png" />
+  <!-- self-hosted fonts (offline, unicode-range subsets). NFR-1 -->
+  <link rel="stylesheet" href="./fonts/fonts.css" />
+  <!-- Leaflet local bundle (no CDN). NFR-1 -->
+  <link rel="stylesheet" href="./vendor/leaflet/leaflet.css" />
+  <link rel="stylesheet" href="./css/tokens.css" />
+  <link rel="stylesheet" href="./css/app.css" />
+</head>
+<body>
+  <header class="app-header">
+    <h1 id="app-title">교토 여행</h1>
+    <span class="sub" id="app-sub"></span>
+  </header>
+
+  <main>
+    <section id="panel-itinerary" class="panel"></section>
+    <section id="panel-places" class="panel"></section>
+    <section id="panel-map" class="panel">
+      <h2 class="section-title">지도</h2>
+      <p class="lead">핀을 누르면 장소 정보가 표시됩니다. 타일은 방문 영역만 오프라인 캐시됩니다.</p>
+      <div class="map-bar">
+        <button data-mode="light">라이트</button>
+        <button data-mode="dark">다크</button>
+      </div>
+      <div id="map"></div>
+    </section>
+    <section id="panel-info" class="panel"></section>
+  </main>
+
+  <nav class="tabbar">
+    <a href="#itinerary" data-tab="itinerary">
+      <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M8 2v3M16 2v3M3 8h18"/><rect x="3" y="4" width="18" height="17" rx="2"/></svg>
+      일정</a>
+    <a href="#places" data-tab="places">
+      <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="7" height="7" rx="1"/><rect x="13" y="4" width="7" height="7" rx="1"/><rect x="4" y="13" width="7" height="7" rx="1"/><rect x="13" y="13" width="7" height="7" rx="1"/></svg>
+      장소</a>
+    <a href="#map" data-tab="map">
+      <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 4 3 6v14l6-2 6 2 6-2V4l-6 2-6-2Z"/><path d="M9 4v14M15 6v14"/></svg>
+      지도</a>
+    <a href="#info" data-tab="info">
+      <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-5M12 8h.01"/></svg>
+      정보</a>
+  </nav>
+
+  <script src="./vendor/leaflet/leaflet.js"></script>
+  <script type="module" src="./js/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,16 @@
+{
+  "name": "교토 · 히메지 · 고베 여행",
+  "short_name": "교토여행",
+  "description": "오프라인 동작 · 저작권 안전 간사이 5일 여행 가이드",
+  "lang": "ko",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#f7f4ee",
+  "theme_color": "#b5462f",
+  "icons": [
+    { "src": "./images/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any maskable" },
+    { "src": "./images/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any maskable" }
+  ]
+}

@@ -1,0 +1,46 @@
+/* Design tokens — colors, typography, spacing. Light + dark.
+   Design Ref: §1 tokens, NFR-2 mobile-first light/dark */
+:root {
+  /* warm paper palette */
+  --bg: #f7f4ee;
+  --surface: #fffdf8;
+  --surface-2: #f0ebe1;
+  --text: #2b2620;
+  --text-dim: #6b6358;
+  --line: #e2dacd;
+  --accent: #b5462f;       /* vermilion torii */
+  --accent-soft: #e7c9bf;
+  --shadow: 0 1px 2px rgba(43,38,32,.06), 0 6px 18px rgba(43,38,32,.07);
+
+  /* category colors */
+  --cat-sight: #2f7d6b;
+  --cat-temple: #b5462f;
+  --cat-food: #c8861a;
+  --cat-hotel: #5a6cae;
+  --cat-transport: #4a8db0;
+  --cat-campus: #7a5aa6;
+
+  /* type */
+  --font-serif: "Gowun Batang", serif;
+  --font-sans: "Gothic A1", system-ui, sans-serif;
+
+  /* spacing */
+  --sp-1: 4px; --sp-2: 8px; --sp-3: 12px; --sp-4: 16px;
+  --sp-5: 24px; --sp-6: 32px; --sp-8: 48px;
+  --r: 14px; --r-sm: 9px;
+  --tab-h: 60px; --header-h: 56px;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #16140f;
+    --surface: #211e18;
+    --surface-2: #2b2720;
+    --text: #ece5d8;
+    --text-dim: #a89e8e;
+    --line: #352f26;
+    --accent: #e0704f;
+    --accent-soft: #4a2e25;
+    --shadow: 0 1px 2px rgba(0,0,0,.3), 0 6px 18px rgba(0,0,0,.35);
+  }
+}

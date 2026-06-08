@@ -1,0 +1,145 @@
+#!/usr/bin/env python3
+"""Fetch CC/PD images from Wikimedia Commons, bundle as WebP, write js/assets.js.
+Design Ref: ASSETS.md (Commons CC/PD only, attribution required) + FR-7.
+"""
+import io, json, re, sys, time, urllib.parse, urllib.request
+from pathlib import Path
+from PIL import Image
+
+ROOT = Path(__file__).resolve().parent.parent
+IMG_DIR = ROOT / "images"
+IMG_DIR.mkdir(exist_ok=True)
+
+API = "https://commons.wikimedia.org/w/api.php"
+UA = "kyoto-trip-pwa/1.0 (offline travel app; contact: jaeho19@gmail.com)"
+
+# key -> Commons search term
+TARGETS = {
+    "kinkakuji": "Kinkaku-ji golden pavilion",
+    "ginkakuji": "Ginkaku-ji",
+    "kiyomizu": "Kiyomizu-dera main hall",
+    "nonomiya": "Nonomiya Shrine Arashiyama",
+    "bamboo": "Arashiyama bamboo grove",
+    "togetsukyo": "Togetsukyo Bridge Arashiyama",
+    "himeji": "Himeji Castle",
+    "kix": "Kansai International Airport",
+    "kuas": "Kyoto University of Advanced Science campus",
+}
+
+# reject candidates whose file title contains these (irrelevant/off-topic)
+REJECT_TITLE = re.compile(r"(mcdonald|restaurant|interior shop|food court|toilet|map|diagram|logo)", re.I)
+
+FREE = re.compile(r"(cc[ -]?by|cc[ -]?by[ -]?sa|cc0|public domain|pd-)", re.I)
+TAG = re.compile(r"<[^>]+>")
+
+def get(url):
+    req = urllib.request.Request(url, headers={"User-Agent": UA})
+    with urllib.request.urlopen(req, timeout=40) as r:
+        return r.read()
+
+def api(params):
+    params = {**params, "format": "json"}
+    return json.loads(get(API + "?" + urllib.parse.urlencode(params)))
+
+def clean(txt):
+    if not txt:
+        return "Unknown"
+    txt = TAG.sub("", txt)
+    txt = re.sub(r"\s+", " ", txt).strip()
+    return (txt[:80] or "Unknown")
+
+def find_image(term):
+    """Return (thumburl, descurl, license, author, licenseurl) or None."""
+    try:
+        data = api({
+            "action": "query", "generator": "search",
+            "gsrsearch": f"filetype:bitmap {term}", "gsrnamespace": "6",
+            "gsrlimit": "12", "prop": "imageinfo",
+            "iiprop": "url|extmetadata|mime|size",
+            "iiurlwidth": "1200",
+        })
+    except Exception as e:
+        print(f"  ! search failed: {e}")
+        return None
+    pages = (data.get("query") or {}).get("pages") or {}
+    cands = sorted(pages.values(), key=lambda p: p.get("index", 99))
+    for p in cands:
+        ii = (p.get("imageinfo") or [None])[0]
+        if not ii:
+            continue
+        if REJECT_TITLE.search(p.get("title", "")):
+            continue
+        if ii.get("mime") not in ("image/jpeg", "image/png"):
+            continue
+        em = ii.get("extmetadata") or {}
+        lic = (em.get("LicenseShortName") or {}).get("value", "")
+        if not FREE.search(lic):
+            continue
+        if (ii.get("width") or 0) < 800:
+            continue
+        author = clean((em.get("Artist") or {}).get("value"))
+        licurl = (em.get("LicenseUrl") or {}).get("value", "")
+        thumb = ii.get("thumburl") or ii.get("url")
+        return (thumb, ii.get("descriptionurl", ""), lic, author, licurl)
+    return None
+
+def save_webp(raw, key):
+    im = Image.open(io.BytesIO(raw)).convert("RGB")
+    w, h = im.size
+    if w > 1200:
+        im = im.resize((1200, int(h * 1200 / w)))
+    out = IMG_DIR / f"{key}.webp"
+    im.save(out, "WEBP", quality=80, method=6)
+    return out.name, out.stat().st_size
+
+def make_icons():
+    """Generate maskable app icons (torii glyph on accent)."""
+    from PIL import ImageDraw
+    for size in (192, 512):
+        im = Image.new("RGB", (size, size), (181, 70, 47))
+        d = ImageDraw.Draw(im)
+        s = size
+        # simple torii: two pillars + two top beams
+        col = (255, 253, 248)
+        pw = int(s * 0.07)
+        d.rectangle([int(s*0.30), int(s*0.34), int(s*0.30)+pw, int(s*0.74)], fill=col)
+        d.rectangle([int(s*0.70)-pw, int(s*0.34), int(s*0.70), int(s*0.74)], fill=col)
+        d.rectangle([int(s*0.20), int(s*0.30), int(s*0.80), int(s*0.30)+pw], fill=col)
+        d.rectangle([int(s*0.24), int(s*0.40), int(s*0.76), int(s*0.40)+int(pw*0.7)], fill=col)
+        im.save(IMG_DIR / f"icon-{size}.png")
+    print("  icons: icon-192.png, icon-512.png")
+
+def main():
+    images, credits = {}, []
+    for key, term in TARGETS.items():
+        print(f"[{key}] {term}")
+        hit = find_image(term)
+        if not hit:
+            print("  -> none free; design-card fallback")
+            continue
+        thumb, descurl, lic, author, licurl = hit
+        try:
+            raw = get(thumb)
+            fname, sz = save_webp(raw, key)
+        except Exception as e:
+            print(f"  ! download/convert failed: {e}")
+            continue
+        images[key] = fname
+        credits.append({
+            "key": key, "title": TARGETS[key], "author": author,
+            "license": lic, "licenseUrl": licurl, "sourceUrl": descurl,
+        })
+        print(f"  -> {fname} ({sz//1024} KB) [{lic} / {author}]")
+        time.sleep(0.5)
+    make_icons()
+
+    js = (
+        "// AUTO-GENERATED by scripts/fetch_images.py — do not edit by hand.\n"
+        "export const IMAGES = " + json.dumps(images, ensure_ascii=False, indent=2) + ";\n"
+        "export const CREDITS = " + json.dumps(credits, ensure_ascii=False, indent=2) + ";\n"
+    )
+    (ROOT / "js" / "assets.js").write_text(js, encoding="utf-8")
+    print(f"\nWrote js/assets.js: {len(images)} images, {len(credits)} credits")
+
+if __name__ == "__main__":
+    main()

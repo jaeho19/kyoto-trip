@@ -1,0 +1,8 @@
+# local verification artifacts
+preview-*.png
+# python
+__pycache__/
+*.pyc
+# os
+Thumbs.db
+.DS_Store
