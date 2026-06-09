@@ -7,8 +7,17 @@ export const IMAGES = {
   "bamboo": "bamboo.webp",
   "togetsukyo": "togetsukyo.webp",
   "himeji": "himeji.webp",
-  "kix": "kix.webp"
+  "kix": "kix.webp",
+  "kuas": "kuas.webp",
+  "hotel_kyoto": "hotel_kyoto.webp",
+  "hotel_kobe": "hotel_kobe.webp",
+  "gochisomura": "gochisomura.webp",
+  "yakinikuking": "yakinikuking.webp",
+  "arashiyama_resto": "arashiyama_resto.webp",
+  "kagonoya": "kagonoya.webp",
+  "takadanobaba": "takadanobaba.webp"
 };
+export const REPRESENTATIVE = ["kuas", "hotel_kyoto", "hotel_kobe", "gochisomura", "yakinikuking", "arashiyama_resto", "kagonoya", "takadanobaba"];
 export const CREDITS = [
   {
     "key": "kinkakuji",
@@ -73,5 +82,77 @@ export const CREDITS = [
     "license": "CC BY 2.5",
     "licenseUrl": "https://creativecommons.org/licenses/by/2.5",
     "sourceUrl": "https://commons.wikimedia.org/wiki/File:Finnair_MD-11_(OH-LGF)_taxiing_at_Kansai_International_Airport.jpg"
+  },
+  {
+    "key": "kuas",
+    "title": "京都先端科学大学 (대표 이미지)",
+    "author": "Asturio Cantabrio",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Kyoto_Gakuen_University_Uzumasa_Campus_ac.jpg",
+    "representative": true
+  },
+  {
+    "key": "hotel_kyoto",
+    "title": "ryokan room tatami Kyoto (대표 이미지)",
+    "author": "Maarten Heerlien from Voorschoten, The Netherlands",
+    "license": "CC BY 2.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/2.0",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:My_traditional_accomodation_at_Toshiharu_Ryokan_(48885681992).jpg",
+    "representative": true
+  },
+  {
+    "key": "hotel_kobe",
+    "title": "Kobe Sannomiya night view (대표 이미지)",
+    "author": "inunami",
+    "license": "CC BY 2.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/2.0",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Higashimon_Street,_Sannomiya,_Kobe_20201211220402.jpg",
+    "representative": true
+  },
+  {
+    "key": "gochisomura",
+    "title": "Japanese set meal teishoku (대표 이미지)",
+    "author": "Savannah Rivka",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:%E5%AE%9A%E9%A3%9F_-_traditional_Japanese_set_meal_at_New_Chitose_Airport_(97).jpg",
+    "representative": true
+  },
+  {
+    "key": "yakinikuking",
+    "title": "yakiniku grilled beef (대표 이미지)",
+    "author": "Benlisquare",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Yakiniku_grill_with_slices_of_beef,_chicken_and_pork.jpg",
+    "representative": true
+  },
+  {
+    "key": "arashiyama_resto",
+    "title": "obanzai Kyoto cuisine (대표 이미지)",
+    "author": "Takoradee",
+    "license": "CC BY-SA 3.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Obanzai_yasai.JPG",
+    "representative": true
+  },
+  {
+    "key": "kagonoya",
+    "title": "tempura set meal (대표 이미지)",
+    "author": "Tokumeigakarinoaoshima",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Ebinoya_Tempura_meal_set.jpg",
+    "representative": true
+  },
+  {
+    "key": "takadanobaba",
+    "title": "oden dish (대표 이미지)",
+    "author": "Mori Chan",
+    "license": "CC BY 2.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/2.0",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Oden_by_Mori_Chan.jpg",
+    "representative": true
   }
 ];

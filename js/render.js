@@ -9,8 +9,9 @@ const esc = (s = '') => String(s).replace(/[&<>"]/g, c =>
 function cardHero(place) {
   const cm = catMeta(place.cat);
   const badge = `<span class="cat-badge" style="--cat:${cm.color}">${icon(cm.icon, 13)}${esc(cm.label)}</span>`;
+  const repTag = place.imgRep ? `<span class="rep-tag" title="실제 장소가 아닌 분위기 대표 이미지입니다">대표 이미지</span>` : '';
   if (place.img) {
-    return `<div class="hero" style="background-image:url('${esc(place.img)}')">${badge}</div>`;
+    return `<div class="hero" style="background-image:url('${esc(place.img)}')">${badge}${repTag}</div>`;
   }
   return `<div class="hero designed" style="--cat:${cm.color};background-color:${cm.color}">
     ${badge}<span class="glyph">${icon(cm.icon, 56)}</span></div>`;
@@ -49,7 +50,7 @@ export function renderItinerary(trip) {
       return `<li class="t-item">
         <span class="dot" style="--cat:${cm.color}"></span>
         ${it.time ? `<div class="time">${esc(it.time)}</div>` : ''}
-        <div class="t-name"><a href="#places">${icon(cm.icon, 16)}${esc(p.name)}</a></div>
+        <div class="t-name"><a href="#map" data-fly="${esc(it.placeKey)}">${icon(cm.icon, 16)}${esc(p.name)}<span class="fly-hint">지도 ↗</span></a></div>
         ${it.note ? `<div class="t-note">${esc(it.note)}</div>` : ''}
       </li>`;
     }).join('');

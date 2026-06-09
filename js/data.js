@@ -1,7 +1,8 @@
 // TRIP — single source of truth. Design Ref: §4 data model.
 // Built from 서울시립대 도시과학대학 연찬회 세부일정 (2026.06.24~26, 교토첨단과학대 방문).
 // Coordinates refined by scripts/geocode.py; descriptions enriched via deep research.
-import { IMAGES, CREDITS } from './assets.js';
+import { IMAGES, REPRESENTATIVE, CREDITS } from './assets.js';
+const REP = new Set(REPRESENTATIVE);
 
 // Coordinates: deep-research + OSM Nominatim verified (docs/_research_readable.md).
 const PLACES = {
@@ -57,7 +58,8 @@ const PLACES = {
 const places = Object.fromEntries(
   Object.entries(PLACES).map(([k, p]) => {
     const file = IMAGES[k];
-    return [k, file ? { ...p, img: `images/${file}` } : p];
+    if (!file) return [k, p];
+    return [k, { ...p, img: `images/${file}`, imgRep: REP.has(k) }];
   })
 );
 

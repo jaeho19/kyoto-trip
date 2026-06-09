@@ -1,6 +1,6 @@
 // Service worker — offline cache. Design Ref: §7.
 // App shell precache + runtime cache for same-origin assets + tile SWR.
-const VERSION = 'v1';
+const VERSION = 'v2';
 const SHELL = `shell-${VERSION}`;
 const RUNTIME = `runtime-${VERSION}`;
 const TILES = `tiles-${VERSION}`;
@@ -11,8 +11,8 @@ const PRECACHE = [
   './css/tokens.css', './css/app.css',
   './js/main.js', './js/data.js', './js/assets.js', './js/render.js',
   './js/icons.js', './js/router.js', './js/map.js',
-  './vendor/leaflet/leaflet.js', './vendor/leaflet/leaflet.css',
-  './fonts/fonts.css',
+  './vendor/maplibre/maplibre-gl.js', './vendor/maplibre/maplibre-gl.css',
+  './fonts/fonts.css', './images/uos-logo.png', './images/uos-logo-white.png',
 ];
 
 self.addEventListener('install', (e) => {
@@ -42,8 +42,8 @@ self.addEventListener('fetch', (e) => {
   if (request.method !== 'GET') return;
   const url = new URL(request.url);
 
-  // map tiles (cross-origin CARTO/OSM) -> stale-while-revalidate
-  if (/basemaps\.cartocdn\.com|tile\.openstreetmap\.org/.test(url.host)) {
+  // map assets (CARTO vector tiles/style/sprite/glyphs, OSM) -> stale-while-revalidate
+  if (/cartocdn\.com|openmaptiles\.org|tile\.openstreetmap\.org/.test(url.host)) {
     e.respondWith((async () => {
       const cache = await caches.open(TILES);
       const cached = await cache.match(request);

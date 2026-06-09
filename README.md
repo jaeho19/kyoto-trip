@@ -9,15 +9,15 @@
 > `main`에 push하면 GitHub Pages와 Netlify(.github/workflows/deploy-netlify.yml)에 **동시 자동배포**됩니다.
 
 ## 특징
-- 📴 **완전 오프라인**: 서비스워커가 앱 셸·이미지·폰트 캐시. 한 번 로드 후 데이터로밍 없이 사용.
-- ⚖️ **저작권 안전**: 장소 사진은 Wikimedia Commons의 **CC/PD** 이미지만 번들, 저작자·라이선스 표기(정보 탭).
-- 🧩 **외부 런타임 의존 0**: Leaflet 로컬 번들, 폰트 self-host, 아이콘 인라인 SVG.
-- 🗺️ 4탭: 일정 · 장소 · 지도(Leaflet+OSM) · 정보.
+- 📴 **오프라인 우선**: 서비스워커가 앱 셸·이미지·폰트 캐시. 한 번 로드 후 데이터로밍 없이 사용(지도 벡터 타일은 방문 영역만 캐시 → 미방문 지역은 온라인 필요).
+- ⚖️ **저작권 안전**: 장소 사진은 Wikimedia Commons의 **CC/PD** 이미지만 번들, 저작자·라이선스 표기(정보 탭). 실제 사진이 없는 곳은 분위기 **대표 이미지**로 표기.
+- 🧩 **번들 우선**: MapLibre GL·폰트 self-host, 아이콘 인라인 SVG(CDN JS 의존 0). 지도 벡터 타일/스타일만 CARTO(무료) 사용.
+- 🗺️ 4탭: 일정 · 장소 · **지도(MapLibre GL 3D·일자별 동선·사진 팝업)** · 정보.
 
 ## 구조
 ```
 index.html            앱 셸          manifest.webmanifest  PWA
-sw.js                 오프라인 SW    css/  js/  vendor/leaflet/
+sw.js                 오프라인 SW    css/  js/  vendor/maplibre/
 images/  fonts/       번들 자산      docs/  PDCA 문서
 scripts/fetch_images.py  Commons 이미지 → WebP + 라이선스
 scripts/fetch_fonts.py   Google Fonts → self-host woff2

@@ -11,15 +11,18 @@
   <link rel="apple-touch-icon" href="./images/icon-192.png" />
   <!-- self-hosted fonts (offline, unicode-range subsets). NFR-1 -->
   <link rel="stylesheet" href="./fonts/fonts.css" />
-  <!-- Leaflet local bundle (no CDN). NFR-1 -->
-  <link rel="stylesheet" href="./vendor/leaflet/leaflet.css" />
+  <!-- MapLibre GL local bundle (no CDN). NFR-1 -->
+  <link rel="stylesheet" href="./vendor/maplibre/maplibre-gl.css" />
   <link rel="stylesheet" href="./css/tokens.css" />
   <link rel="stylesheet" href="./css/app.css" />
 </head>
 <body>
   <header class="app-header">
-    <h1 id="app-title">교토 여행</h1>
-    <span class="sub" id="app-sub"></span>
+    <div class="uos-logo" role="img" aria-label="서울시립대학교 University of Seoul"></div>
+    <div class="head-titles">
+      <h1 id="app-title">교토 여행</h1>
+      <span class="sub" id="app-sub"></span>
+    </div>
   </header>
 
   <main>
@@ -27,8 +30,13 @@
     <section id="panel-places" class="panel"></section>
     <section id="panel-map" class="panel">
       <h2 class="section-title">지도</h2>
-      <p class="lead">핀을 누르면 장소 정보가 표시됩니다. 타일은 방문 영역만 오프라인 캐시됩니다.</p>
+      <p class="lead">드래그로 회전·기울이기, 핀을 누르면 사진과 정보. 일자를 누르면 그날 동선만 표시됩니다.</p>
       <div class="map-bar">
+        <button class="chip active" data-day="0">전체</button>
+        <button class="chip day1" data-day="1">Day 1</button>
+        <button class="chip day2" data-day="2">Day 2</button>
+        <button class="chip day3" data-day="3">Day 3</button>
+        <span class="bar-sep"></span>
         <button data-mode="light">라이트</button>
         <button data-mode="dark">다크</button>
       </div>
@@ -52,7 +60,7 @@
       정보</a>
   </nav>
 
-  <script src="./vendor/leaflet/leaflet.js"></script>
+  <script src="./vendor/maplibre/maplibre-gl.js"></script>
   <script type="module" src="./js/main.js"></script>
 </body>
 </html>
