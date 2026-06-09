@@ -1,9 +1,11 @@
 // Service worker — offline cache. Design Ref: §7.
-// v4: bump cache version so existing installs pick up the places-filter + day-pill fixes
-// (cache-first serves css/js, so a version bump is required to ship app.css / itinerary.js changes).
+// v5: static assets now use stale-while-revalidate (serve cache, refresh in the
+// background) so future deploys auto-propagate within one revisit — no more silent
+// staleness. Carries the hero retitle + bus badge + single map button changes.
+// v4: bump cache version so existing installs pick up the places-filter + day-pill fixes.
 // v3: map tab now uses Google Maps (network-only, cross-origin); app shell + assets
 // (itinerary / places / info) remain fully offline.
-const VERSION = 'v4';
+const VERSION = 'v5';
 const SHELL = `shell-${VERSION}`;
 const RUNTIME = `runtime-${VERSION}`;
 
@@ -46,19 +48,18 @@ self.addEventListener('fetch', (e) => {
     return;
   }
 
-  // static assets -> cache-first, populate runtime cache
-  e.respondWith((async () => {
-    const cached = await caches.match(request);
-    if (cached) return cached;
-    try {
-      const res = await fetch(request);
-      if (res.ok) {
-        const cache = await caches.open(RUNTIME);
-        cache.put(request, res.clone());
-      }
-      return res;
-    } catch (err) {
-      return cached || Response.error();
+  // static assets -> stale-while-revalidate:
+  // serve cache instantly (offline-first), refresh in the background so the
+  // NEXT load picks up new deploys without needing a cache-version bump.
+  const fresh = fetch(request).then(async (res) => {
+    if (res.ok) {
+      // write back to whichever cache already holds it (SHELL if precached, else RUNTIME)
+      const inShell = await caches.open(SHELL).then(c => c.match(request));
+      const cache = await caches.open(inShell ? SHELL : RUNTIME);
+      cache.put(request, res.clone());
     }
-  })());
+    return res;
+  }).catch(() => null);
+  e.waitUntil(fresh);   // keep the SW alive until the background refresh + cache write finishes
+  e.respondWith((async () => (await caches.match(request)) || (await fresh) || Response.error())());
 });

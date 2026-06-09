@@ -6,8 +6,6 @@ import { DAY_COLORS, dayColor, dayMembership, dDayInfo } from './trip-utils.js';
 const esc = (s = '') => String(s).replace(/[&<>"]/g, c =>
   ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
 
-const gmapsSearch = (p) => `https://www.google.com/maps/search/?api=1&query=${p.lat},${p.lng}`;
-
 /* ───────────────────────── places ───────────────────────── */
 
 // hero block: real image -> background-image; else designed card (cat color + pattern)
@@ -34,7 +32,6 @@ function placeCard(place, days, key) {
   const actions = (typeof place.lat === 'number')
     ? `<div class="card-actions">
         <a class="act act-map" href="#map" data-fly="${esc(key)}">${icon('map', 14)} 지도에서 보기</a>
-        <a class="act act-ext" href="${gmapsSearch(place)}" target="_blank" rel="noopener">${icon('pin', 14)} 구글 지도 ↗</a>
       </div>`
     : '';
   return `<article class="card" data-key="${esc(key)}" data-cat="${esc(place.cat)}" data-days="${days.join(' ')}">
@@ -131,6 +128,7 @@ export function renderItinerary(trip) {
       <p class="hero-sub">${esc(trip.meta.subtitle)}</p>
       <div class="hero-meta">
         <span class="hm-pill">${icon('calendar', 14)} ${esc(trip.meta.dates)}</span>
+        ${trip.meta.transport ? `<span class="hm-pill">${icon('transport', 14)} ${esc(trip.meta.transport)}</span>` : ''}
         <span class="hm-pill dday ${dd.state}">${esc(dd.label)}</span>
       </div>
     </section>
