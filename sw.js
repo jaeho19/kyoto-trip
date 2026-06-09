@@ -1,7 +1,9 @@
 // Service worker — offline cache. Design Ref: §7.
+// v4: bump cache version so existing installs pick up the places-filter + day-pill fixes
+// (cache-first serves css/js, so a version bump is required to ship app.css / itinerary.js changes).
 // v3: map tab now uses Google Maps (network-only, cross-origin); app shell + assets
 // (itinerary / places / info) remain fully offline.
-const VERSION = 'v3';
+const VERSION = 'v4';
 const SHELL = `shell-${VERSION}`;
 const RUNTIME = `runtime-${VERSION}`;
 
