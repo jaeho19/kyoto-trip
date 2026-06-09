@@ -11,8 +11,6 @@
   <link rel="apple-touch-icon" href="./images/icon-192.png" />
   <!-- self-hosted fonts (offline, unicode-range subsets). NFR-1 -->
   <link rel="stylesheet" href="./fonts/fonts.css" />
-  <!-- MapLibre GL local bundle (no CDN). NFR-1 -->
-  <link rel="stylesheet" href="./vendor/maplibre/maplibre-gl.css" />
   <link rel="stylesheet" href="./css/tokens.css" />
   <link rel="stylesheet" href="./css/app.css" />
 </head>
@@ -30,17 +28,8 @@
     <section id="panel-places" class="panel"></section>
     <section id="panel-map" class="panel">
       <h2 class="section-title">지도</h2>
-      <p class="lead">드래그로 회전·기울이기, 핀을 누르면 사진과 정보. 일자를 누르면 그날 동선만 표시됩니다.</p>
-      <div class="map-bar">
-        <button class="chip active" data-day="0">전체</button>
-        <button class="chip day1" data-day="1">Day 1</button>
-        <button class="chip day2" data-day="2">Day 2</button>
-        <button class="chip day3" data-day="3">Day 3</button>
-        <span class="bar-sep"></span>
-        <button data-mode="light">라이트</button>
-        <button data-mode="dark">다크</button>
-      </div>
-      <div id="map"></div>
+      <p class="lead">일자를 누르면 그날의 <b>차량 이동 동선</b>이 구글 지도에 표시됩니다. 아래 버튼으로 구글 지도 앱에서 길찾기를 열 수 있어요.</p>
+      <div id="map-ui"></div>
     </section>
     <section id="panel-info" class="panel"></section>
   </main>
@@ -60,7 +49,6 @@
       정보</a>
   </nav>
 
-  <script src="./vendor/maplibre/maplibre-gl.js"></script>
   <script type="module" src="./js/main.js"></script>
 </body>
 </html>

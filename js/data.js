@@ -68,6 +68,8 @@ export const TRIP = {
     title: '교토 · 히메지 · 고베',
     subtitle: '서울시립대 도시과학대학 · 교토첨단과학대(KUAS) 방문',
     dates: '2026.06.24(수) ~ 06.26(금) · 2박 3일',
+    startDate: '2026-06-24',
+    endDate: '2026-06-26',
     party: '서울시립대학교 도시과학대학',
     lang: 'ko',
   },

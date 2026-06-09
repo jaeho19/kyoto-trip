@@ -20,6 +20,11 @@
   --cat-transport: #4a8db0;
   --cat-campus: #7a5aa6;
 
+  /* per-day colors — shared across itinerary / places / map */
+  --day-1: #b5462f;   /* vermilion */
+  --day-2: #2f7d6b;   /* pine teal */
+  --day-3: #5a6cae;   /* indigo */
+
   /* type */
   --font-serif: "Gowun Batang", serif;
   --font-sans: "Gothic A1", system-ui, sans-serif;

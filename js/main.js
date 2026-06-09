@@ -2,7 +2,9 @@
 import { TRIP } from './data.js';
 import { renderItinerary, renderPlaces, renderInfo } from './render.js';
 import { initRouter } from './router.js';
-import { initMap, flyToPlace } from './map.js';
+import { initItinerary } from './itinerary.js';
+import { initPlacesFilter, gotoPlace } from './places.js';
+import { initMap, focusPlace } from './map.js';
 
 // header
 document.getElementById('app-title').textContent = TRIP.meta.title;
@@ -13,18 +15,27 @@ document.getElementById('panel-itinerary').innerHTML = renderItinerary(TRIP);
 document.getElementById('panel-places').innerHTML = renderPlaces(TRIP);
 document.getElementById('panel-info').innerHTML = renderInfo(TRIP);
 
-// timeline item → fly to that place on the map
+// wire per-tab interactions
+initItinerary();
+initPlacesFilter();
+
+// cross-tab links: timeline/place-card → map focus, map stop → place card
 let flyTarget = null;
+let placeTarget = null;
 document.addEventListener('click', (e) => {
-  const a = e.target.closest('[data-fly]');
-  if (a) flyTarget = a.dataset.fly;
+  const fly = e.target.closest('[data-fly]');
+  if (fly) flyTarget = fly.dataset.fly;
+  const goto = e.target.closest('[data-goto-place]');
+  if (goto) placeTarget = goto.dataset.gotoPlace;
 });
 
-// router: lazy-init map when the map tab becomes active
+// router: lazy-init map when the map tab becomes active; resolve cross-tab targets
 initRouter((tab) => {
   if (tab === 'map') {
     initMap(TRIP);
-    if (flyTarget) { flyToPlace(flyTarget); flyTarget = null; }
+    if (flyTarget) { focusPlace(flyTarget); flyTarget = null; }
+  } else if (tab === 'places') {
+    if (placeTarget) { gotoPlace(placeTarget); placeTarget = null; }
   }
 });
 
