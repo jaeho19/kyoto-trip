@@ -1,0 +1,18 @@
+name: Deploy to Netlify
+
+# Auto-deploy to Netlify on every push to main (GitHub Pages deploys in parallel).
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  netlify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Deploy static site to Netlify (production)
+        run: npx --yes netlify-cli@latest deploy --prod --dir="." --site="$NETLIFY_SITE_ID" --auth="$NETLIFY_AUTH_TOKEN" --message="CI deploy ${GITHUB_SHA::7}"
+        env:
+          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
+          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}

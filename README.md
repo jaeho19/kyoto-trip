@@ -2,7 +2,11 @@
 
 오프라인 동작 · 저작권 안전 자산 기반 간사이 여행 가이드(설치형 PWA).
 
-**라이브:** https://jaeho19.github.io/kyoto-trip/
+**라이브:**
+- GitHub Pages: https://jaeho19.github.io/kyoto-trip/
+- Netlify: https://kyoto-trip.netlify.app
+
+> `main`에 push하면 GitHub Pages와 Netlify(.github/workflows/deploy-netlify.yml)에 **동시 자동배포**됩니다.
 
 ## 특징
 - 📴 **완전 오프라인**: 서비스워커가 앱 셸·이미지·폰트 캐시. 한 번 로드 후 데이터로밍 없이 사용.
