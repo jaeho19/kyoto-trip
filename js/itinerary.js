@@ -9,18 +9,22 @@ export function initItinerary() {
   const panel = document.getElementById('panel-itinerary');
   if (!panel) return;
 
+  let lockUntil = 0;  // suppress scrollspy while a click-driven smooth scroll is animating
+
   panel.querySelectorAll('[data-day-jump]').forEach(pill => {
     pill.addEventListener('click', (e) => {
       e.preventDefault();
       const target = panel.querySelector(`#day-${pill.dataset.dayJump}`);
       if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
       setActivePill(panel, pill.dataset.dayJump);
+      lockUntil = Date.now() + 800;  // hold until the smooth scroll settles
     });
   });
 
   // highlight the pill of the day currently in view
   if ('IntersectionObserver' in window) {
     const io = new IntersectionObserver((entries) => {
+      if (Date.now() < lockUntil) return;  // ignore intermediate cards during a click-driven scroll
       entries.forEach(en => {
         if (en.isIntersecting) setActivePill(panel, en.target.id.replace('day-', ''));
       });

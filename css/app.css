@@ -131,6 +131,7 @@ main {
   border-radius: var(--r); overflow: hidden; box-shadow: var(--shadow);
   display: flex; flex-direction: column;
 }
+.card[hidden] { display: none !important; }   /* override display:flex so the day/category filter actually hides cards */
 .card .hero {
   height: 150px; background-size: cover; background-position: center;
   position: relative;
