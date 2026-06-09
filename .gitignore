@@ -1,5 +1,10 @@
 # local verification artifacts
 preview-*.png
+# intermediate research/geocode dumps (keep curated _research_readable.md)
+docs/_schedule_dump.txt
+docs/_geocode.json
+docs/_geocode2.json
+docs/_research.json
 # python
 __pycache__/
 *.pyc

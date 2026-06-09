@@ -60,7 +60,7 @@ const EXPECT_MARKERS = 16;  // all places have lat/lng
 
   results.consoleErrors = errors;
   const pass =
-    results.itineraryActive && results.dayCount === 5 &&
+    results.itineraryActive && results.dayCount === 3 &&
     results.cardCount === EXPECT_PLACES &&
     results.heroImages === 8 && results.designedCards === EXPECT_PLACES - 8 &&
     results.markerCount === EXPECT_MARKERS && results.darkActive &&

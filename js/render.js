@@ -20,12 +20,14 @@ function placeCard(place) {
   const meta = [
     place.area ? `📍 ${esc(place.area)}` : '',
     place.hours ? `🕘 ${esc(place.hours)}` : '',
+    place.url ? `<a href="${esc(place.url)}" target="_blank" rel="noopener">공식 사이트 ↗</a>` : '',
   ].filter(Boolean).map(m => `<span>${m}</span>`).join('');
   return `<article class="card">
     ${cardHero(place)}
     <div class="body">
       <h3>${esc(place.name)}</h3>
       ${place.desc ? `<p class="desc">${esc(place.desc)}</p>` : ''}
+      ${place.addr ? `<p class="addr">🗺️ ${esc(place.addr)}</p>` : ''}
       <div class="meta">${meta}</div>
     </div>
   </article>`;
