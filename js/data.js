@@ -79,8 +79,8 @@ export const TRIP = {
     { day: 1, date: '6/24 (수)', label: '인천 → 관서 · 교토첨단과학대 · 금각사', items: [
       { time: '11:20', placeKey: 'kix', note: 'KE723 인천 09:35 출발 → 관서공항 도착, 전용버스(45인승) 탑승' },
       { time: '12:30', placeKey: 'gochisomura', note: '중식 (일정식, 예약완료)' },
-      { time: '14:00', placeKey: 'kuas', note: '★ 방문지 — 교토첨단과학대학 우즈마사 캠퍼스' },
-      { time: '15:00', placeKey: 'kinkakuji', note: '15:00–16:30 관람' },
+      { time: '15:00', placeKey: 'kuas', note: '★ 방문지 — 교토첨단과학대학 우즈마사 캠퍼스' },
+      { time: '16:30', placeKey: 'kinkakuji', note: '16:30–17:30 관람' },
       { time: '18:00', placeKey: 'yakinikuking', note: '석식 (야키니쿠 + 주류뷔페)' },
       { time: '저녁', placeKey: 'hotel_kyoto', note: '체크인 · 대욕장' },
     ]},

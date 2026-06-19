@@ -1,11 +1,12 @@
 // Service worker — offline cache. Design Ref: §7.
+// v6: bump cache version to force-propagate the Day 1 time fix (KUAS 15:00, 금각사 16:30–17:30).
 // v5: static assets now use stale-while-revalidate (serve cache, refresh in the
 // background) so future deploys auto-propagate within one revisit — no more silent
 // staleness. Carries the hero retitle + bus badge + single map button changes.
 // v4: bump cache version so existing installs pick up the places-filter + day-pill fixes.
 // v3: map tab now uses Google Maps (network-only, cross-origin); app shell + assets
 // (itinerary / places / info) remain fully offline.
-const VERSION = 'v5';
+const VERSION = 'v6';
 const SHELL = `shell-${VERSION}`;
 const RUNTIME = `runtime-${VERSION}`;
 
