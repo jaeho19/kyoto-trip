@@ -1,4 +1,5 @@
 // Service worker — offline cache. Design Ref: §7.
+// v8: 포럼 탭 신설(식순·연사·사토 강연) + forum-hero/forum-sato-material 이미지 precache.
 // v7: bump cache version to propagate the 정보 탭 확장 (TRIP.info: 비상연락처·항공·준비물·
 // 유의사항·수하물·출입국) + 출국편 KE723→KE5868 정정.
 // v6: bump cache version to force-propagate the Day 1 time fix (KUAS 15:00, 금각사 16:30–17:30).
@@ -8,7 +9,7 @@
 // v4: bump cache version so existing installs pick up the places-filter + day-pill fixes.
 // v3: map tab now uses Google Maps (network-only, cross-origin); app shell + assets
 // (itinerary / places / info) remain fully offline.
-const VERSION = 'v7';
+const VERSION = 'v8';
 const SHELL = `shell-${VERSION}`;
 const RUNTIME = `runtime-${VERSION}`;
 
@@ -19,6 +20,7 @@ const PRECACHE = [
   './js/icons.js', './js/router.js', './js/map.js',
   './js/trip-utils.js', './js/places.js', './js/itinerary.js',
   './fonts/fonts.css', './images/uos-logo.png', './images/uos-logo-white.png',
+  './images/forum-hero.webp', './images/forum-sato-material.webp',
 ];
 
 self.addEventListener('install', (e) => {

@@ -1,5 +1,5 @@
 // Hash router + tab switching. Design Ref: §5, FR-1.
-const TABS = ['itinerary', 'places', 'map', 'info'];
+const TABS = ['itinerary', 'forum', 'places', 'map', 'info'];
 
 export function initRouter(onChange) {
   const go = () => {

@@ -1,6 +1,6 @@
 // Entry: wire data -> render -> router -> map, register SW. Design Ref: §11.1.
 import { TRIP } from './data.js';
-import { renderItinerary, renderPlaces, renderInfo } from './render.js';
+import { renderItinerary, renderForum, renderPlaces, renderInfo } from './render.js';
 import { initRouter } from './router.js';
 import { initItinerary } from './itinerary.js';
 import { initPlacesFilter, gotoPlace } from './places.js';
@@ -12,6 +12,7 @@ document.getElementById('app-sub').textContent = TRIP.meta.subtitle;
 
 // render static panels once (pure functions, single injection)
 document.getElementById('panel-itinerary').innerHTML = renderItinerary(TRIP);
+document.getElementById('panel-forum').innerHTML = renderForum(TRIP);
 document.getElementById('panel-places').innerHTML = renderPlaces(TRIP);
 document.getElementById('panel-info').innerHTML = renderInfo(TRIP);
 

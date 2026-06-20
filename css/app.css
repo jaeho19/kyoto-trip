@@ -325,6 +325,68 @@ main {
 .entry-list { margin: 0; padding-left: 1.2em; display: grid; gap: var(--sp-2); }
 .entry-list li { font-size: 13px; }
 
+/* forum — hero */
+.forum-hero { border-radius: var(--r); overflow: hidden; box-shadow: var(--shadow);
+  background-size: cover; background-position: center; min-height: 200px;
+  display: flex; align-items: flex-end; margin-bottom: var(--sp-5); }
+.fh-body { padding: var(--sp-5) var(--sp-5) var(--sp-4); color: #fff; width: 100%; }
+.fh-kicker { font-size: 11px; font-weight: 700; letter-spacing: .04em; opacity: .9; }
+.fh-title { font-family: var(--font-serif); font-size: 22px; font-weight: 700; margin: 4px 0 2px; line-height: 1.3; }
+.fh-sub { font-size: 12px; opacity: .9; margin-bottom: var(--sp-3); }
+.fh-meta { display: flex; flex-wrap: wrap; gap: var(--sp-2); }
+.fh-pill { display: inline-flex; align-items: center; gap: 5px; font-size: 12px; font-weight: 600;
+  background: rgba(255,255,255,.18); backdrop-filter: blur(3px); padding: 5px 11px; border-radius: 999px; }
+.fh-pill .ic { width: 14px; height: 14px; }
+
+.forum-h { font-family: var(--font-serif); font-size: 18px; margin: var(--sp-5) 0 var(--sp-3); }
+
+/* forum — program (식순) */
+.forum-program { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--sp-2); }
+.fp-item { display: grid; grid-template-columns: 34px 1fr auto; align-items: center; gap: var(--sp-3);
+  background: var(--surface); border: 1px solid var(--line); border-left: 4px solid var(--line);
+  border-radius: var(--r-sm); padding: var(--sp-3) var(--sp-4); box-shadow: var(--shadow); }
+.fp-item.kn { border-left-color: var(--accent); }
+.fp-item.pn { border-left-color: var(--cat-hotel); }
+.fp-item.tk { border-left-color: var(--cat-sight); }
+.fp-item.cm { opacity: .72; }
+.fp-seq { font-family: var(--font-serif); font-weight: 700; font-size: 15px; color: var(--text-dim);
+  text-align: center; }
+.fp-item.kn .fp-seq { color: var(--accent); }
+.fp-main { min-width: 0; }
+.fp-title { font-weight: 600; font-size: 13.5px; line-height: 1.35; }
+.fp-who { font-size: 12px; color: var(--text-dim); margin-top: 2px; }
+.fp-kind { font-size: 11px; font-weight: 700; color: var(--text-dim); white-space: nowrap; }
+
+/* forum — speakers */
+.speakers { display: grid; gap: var(--sp-4); }
+.speaker { background: var(--surface); border: 1px solid var(--line); border-radius: var(--r);
+  box-shadow: var(--shadow); padding: var(--sp-4) var(--sp-5); }
+.speaker.keynote { border-color: color-mix(in srgb, var(--accent) 45%, var(--line));
+  background: radial-gradient(120% 130% at 100% 0%, color-mix(in srgb, var(--accent) 9%, transparent), transparent 55%), var(--surface); }
+.sp-head { display: flex; align-items: center; gap: var(--sp-3); }
+.sp-avatar { flex: none; width: 44px; height: 44px; border-radius: 50%;
+  display: grid; place-items: center; font-family: var(--font-serif); font-weight: 700; font-size: 20px;
+  color: #fff; background: var(--cat-hotel); }
+.speaker.keynote .sp-avatar { background: var(--accent); }
+.sp-id { min-width: 0; }
+.sp-name { font-weight: 700; font-size: 14.5px; display: flex; align-items: center; flex-wrap: wrap; gap: 6px; }
+.sp-affil { font-size: 12px; color: var(--text-dim); margin-top: 2px; }
+.sp-tag { font-size: 10px; font-weight: 700; color: var(--cat-hotel);
+  background: color-mix(in srgb, var(--cat-hotel) 14%, transparent); padding: 2px 7px; border-radius: 999px; }
+.sp-tag.warn { color: var(--cat-food); background: color-mix(in srgb, var(--cat-food) 16%, transparent); }
+.sp-bio { font-size: 13px; color: var(--text); margin: var(--sp-3) 0 0; }
+.sp-topic { font-size: 13.5px; font-weight: 600; margin-top: var(--sp-3);
+  border-top: 1px solid var(--line); padding-top: var(--sp-3); }
+.sp-topic-en { display: block; font-size: 12px; font-weight: 400; color: var(--text-dim); margin-top: 2px; font-style: italic; }
+.sp-talktitle { font-size: 13.5px; font-weight: 700; color: var(--accent); margin-top: var(--sp-3);
+  border-top: 1px solid var(--line); padding-top: var(--sp-3); line-height: 1.4; }
+.sp-summary { margin: var(--sp-3) 0 0; padding-left: 1.1em; display: grid; gap: 6px; }
+.sp-summary li { font-size: 12.5px; line-height: 1.5; }
+.sp-material { margin: var(--sp-4) 0 0; }
+.sp-material img { width: 100%; max-width: 320px; border-radius: var(--r-sm); border: 1px solid var(--line); display: block; }
+.sp-material figcaption { font-size: 11.5px; color: var(--text-dim); margin-top: var(--sp-2); line-height: 1.5; }
+.sp-credit { display: block; font-size: 10.5px; opacity: .8; margin-top: 2px; }
+
 /* bottom tab bar */
 .tabbar {
   position: fixed; left: 0; right: 0; bottom: 0; z-index: 30;

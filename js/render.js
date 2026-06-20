@@ -136,6 +136,91 @@ export function renderItinerary(trip) {
     ${days}`;
 }
 
+/* ───────────────────────── forum ───────────────────────── */
+
+const FORUM_KIND = {
+  keynote:  { emo: '🎤', label: '특강', cls: 'kn' },
+  panel:    { emo: '💬', label: '토론', cls: 'pn' },
+  talk:     { emo: '📊', label: '발표', cls: 'tk' },
+  ceremony: { emo: '🎓', label: '의례', cls: 'cm' },
+};
+const FLAG = { jp: '🇯🇵', kr: '🇰🇷' };
+
+function forumProgram(program = []) {
+  const rows = program.map(p => {
+    const k = FORUM_KIND[p.kind] || FORUM_KIND.talk;
+    return `<li class="fp-item ${k.cls}">
+      <span class="fp-seq">${esc(p.seq)}</span>
+      <div class="fp-main">
+        <div class="fp-title">${esc(p.title)}</div>
+        ${p.who ? `<div class="fp-who">${esc(p.who)}</div>` : ''}
+      </div>
+      <span class="fp-kind">${k.emo} ${esc(k.label)}</span>
+    </li>`;
+  }).join('');
+  return `<ol class="forum-program">${rows}</ol>`;
+}
+
+function avatar(name = '?') {
+  return `<span class="sp-avatar" aria-hidden="true">${esc(String(name).trim().charAt(0))}</span>`;
+}
+
+function satoTalk(s) {
+  const bullets = (s.summary || []).map(x => `<li>${esc(x)}</li>`).join('');
+  const material = s.material ? `<figure class="sp-material">
+    <img src="${esc(s.material)}" alt="${esc(s.materialCaption || '강연 자료')}" loading="lazy" />
+    ${s.materialCaption ? `<figcaption>${esc(s.materialCaption)}${s.materialCredit ? `<span class="sp-credit">${esc(s.materialCredit)}</span>` : ''}</figcaption>` : ''}
+  </figure>` : '';
+  return `${s.talkTitle ? `<div class="sp-talktitle">“${esc(s.talkTitle)}”</div>` : ''}
+    ${bullets ? `<ul class="sp-summary">${bullets}</ul>` : ''}
+    ${material}`;
+}
+
+function speakerCard(s) {
+  const flag = FLAG[s.country] || '';
+  const topic = s.topic ? `<div class="sp-topic">${esc(s.topic)}${s.topicEn ? `<span class="sp-topic-en">${esc(s.topicEn)}</span>` : ''}</div>` : '';
+  const role = s.role ? `<span class="sp-tag">${esc(s.role)}</span>` : '';
+  const note = s.note ? `<span class="sp-tag warn">${esc(s.note)}</span>` : '';
+  const isKeynote = s.id === 'sato';
+  return `<article class="speaker${isKeynote ? ' keynote' : ''}">
+    <header class="sp-head">
+      ${avatar(s.name)}
+      <div class="sp-id">
+        <div class="sp-name">${flag} ${esc(s.name)}${role}${note}</div>
+        ${s.affil ? `<div class="sp-affil">${esc(s.affil)}</div>` : ''}
+      </div>
+    </header>
+    ${s.bio ? `<p class="sp-bio">${esc(s.bio)}</p>` : ''}
+    ${topic}
+    ${isKeynote ? satoTalk(s) : ''}
+  </article>`;
+}
+
+export function renderForum(trip) {
+  const f = trip.forum;
+  if (!f) return `<h2 class="section-title">포럼</h2><p class="lead">포럼 정보가 없습니다.</p>`;
+  const heroStyle = f.hero
+    ? ` style="background-image:linear-gradient(180deg, rgba(20,18,15,.15), rgba(20,18,15,.8)), url('${esc(f.hero)}')"`
+    : '';
+  const hero = `<section class="forum-hero"${heroStyle}>
+    <div class="fh-body">
+      ${f.host ? `<div class="fh-kicker">${esc(f.host)}</div>` : ''}
+      <h2 class="fh-title">${esc(f.title)}</h2>
+      ${f.subtitleEn ? `<div class="fh-sub">${esc(f.subtitleEn)}</div>` : ''}
+      <div class="fh-meta">
+        ${f.datetime ? `<span class="fh-pill">${icon('calendar', 14)} ${esc(f.datetime)}</span>` : ''}
+        ${f.venue ? `<span class="fh-pill">${icon('campus', 14)} ${esc(f.venue)}</span>` : ''}
+      </div>
+    </div>
+  </section>`;
+  const speakers = (f.speakers || []).map(speakerCard).join('');
+  return `${hero}
+    <h3 class="forum-h">식순</h3>
+    ${forumProgram(f.program)}
+    <h3 class="forum-h">연사 · 발표</h3>
+    <div class="speakers">${speakers}</div>`;
+}
+
 /* ───────────────────────── info ───────────────────────── */
 
 // common section wrapper (emoji glyph is a literal, title is escaped)

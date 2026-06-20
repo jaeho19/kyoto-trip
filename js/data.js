@@ -141,5 +141,61 @@ export const TRIP = {
       '여권 훼손(낙서·풀칠·페이지 절단)이 있으면 입국이 거부될 수 있으니 출발 전날 재확인.',
     ],
   },
+  // 국제학술 발전포럼 — Day1(6/24 15:00 KUAS) 핵심 행사. 식순 PPT + 사토 교수 강연 PPT 기반.
+  forum: {
+    title: '2026 도시과학대학 국제학술 발전포럼',
+    subtitleEn: 'KUAS·UOS Joint Seminar on Urban Culture and Urban Sciences',
+    datetime: '2026.06.24(수) 15:00',
+    venue: '교토첨단과학대학(KUAS) · 우즈마사 캠퍼스',
+    host: '서울시립대 도시과학대학 · 교토첨단과학대 공동주최',
+    hero: 'images/forum-hero.webp',
+    // 식순 — 축사·폐회사 전문은 제외, 흐름만. kind: ceremony|keynote|panel|talk
+    program: [
+      { seq: '개회', kind: 'ceremony', title: '학장 축사', who: '박동주 학장 (UOS)' },
+      { seq: '1', kind: 'keynote', title: '특강 — Can Humans Understand AI', who: '사토 요시미치 교수 (KUAS)', ref: 'sato' },
+      { seq: '2', kind: 'panel', title: '토론 — Can Humans Understand AI', who: '장원호 교수 (UOS) 주최', ref: 'jang' },
+      { seq: '3', kind: 'talk', title: '발표 — 대기오염 저감·탄소중립 위한 환경 전기화학 시스템', who: '천선정 교수 (UOS)', ref: 'cheon' },
+      { seq: '4', kind: 'talk', title: '발표 — 사회기반시설 유지관리·잔존수명평가', who: '주효은 교수 (UOS)', ref: 'joo' },
+      { seq: '폐회', kind: 'ceremony', title: '폐회사', who: '박동주 학장 (UOS)' },
+    ],
+    speakers: [
+      {
+        id: 'sato', country: 'jp',
+        name: '사토 요시미치 (佐藤 嘉倫, Yoshimichi Sato)',
+        affil: 'KUAS 인문학부 교수 · 학부장(Dean)',
+        bio: '저명한 사회학자. 일본 사회학계에서 사회계층·불평등 연구의 권위자로 평가받으며, 사회적 불평등·사회자본(social capital)·사회변동을 연구.',
+        talkTitle: 'Can Humans Understand AI? — Toward an Interpretive Sociology of Human–AI Interaction',
+        summary: [
+          'ChatGPT 이후 생성형 AI가 사회적 상호작용의 새로운 ‘행위자’로 등장 → “인간은 AI를 이해할 수 있는가?”라는 사회학적 질문 제기.',
+          '기존 사회학은 신체를 가진 인간 행위자 간 상호작용을 전제 → 비인간 행위자 AI의 등장으로 이론의 재구성 필요.',
+          '분석틀은 막스 베버의 이해사회학(interpretive sociology) — 인간이 AI의 ‘의도와 의미’를 어떻게 이해하는가.',
+          '‘이해’란 상대의 내적 인과모형(동기→의도→행위)을 파악해 설명이 “납득된다”고 느끼는 것. 경험적 진위보다 납득의 느낌이 핵심.',
+          '인간–AI 이해 과정: 프롬프트 → 출력 → 의도 추론 → 입력·출력을 잇는 내적 인과모형 구성 → 출력이 ‘납득됨’.',
+          '단, 인간과 AI는 같은 사회적 맥락을 공유하지 않아 추론이 어려울 수 있음(예: ChatGPT의 서구 중심 답변, 우시노코쿠마이리 같은 문화적 행위).',
+          'AI는 능동이 아닌 반응적 존재이며 내적 인과모형을 직접 검증할 수 없음 — 그러나 이는 타인을 이해하는 어려움과 본질적으로 다른가?',
+          '지속적 상호작용과 심리적 투사(projection)를 통해, 타인에게 하듯 AI에도 ‘내적 인과모형이 있다’고 느끼게 될 수 있음.',
+          '결론: AI를 이해한다는 것은 그 내적 인과모형을 파악했다고 ‘느끼는’ 것 — 주관적 확신에 기반한 심리적 구성물. 현재는 인간이 AI보다 투사가 쉬워 이해가 더 쉬움.',
+          '향후 과제: 지속적 상호작용의 실증 연구, 투사·신뢰 형성의 사회심리 분석, “인간은 AI를 신뢰할 수 있는가?”, 이해사회학의 AI로의 확장.',
+        ],
+        material: 'images/forum-sato-material.webp',
+        materialCaption: '강연 예시 — 우시노코쿠마이리(丑の刻参り): 사회적·문화적 맥락 없이는 해석이 어려운 행위의 사례',
+        materialCredit: '丑の刻参り · Toriyama Sekien (1776) · Public Domain',
+      },
+      {
+        id: 'jang', country: 'kr', name: '장원호 교수', affil: 'UOS 도시과학대학', role: '토론 주최',
+        topic: '사토 교수 특강 「Can Humans Understand AI」를 주제로 한 토론 진행',
+      },
+      {
+        id: 'cheon', country: 'kr', name: '천선정 교수', affil: 'UOS 도시과학대학',
+        topic: '대기오염 저감과 탄소중립 실현을 위한 환경 전기화학 시스템',
+        topicEn: 'Environmental Electrochemical Systems for Air Pollution Control and Carbon Neutrality',
+      },
+      {
+        id: 'joo', country: 'kr', name: '주효은 교수', affil: 'UOS 도시과학대학',
+        topic: '멀티스케일 해석을 통한 사회기반시설 유지관리와 잔존수명평가',
+        note: '주제 변경 예정',
+      },
+    ],
+  },
   credits: CREDITS,
 };
