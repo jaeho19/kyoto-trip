@@ -1,4 +1,6 @@
 // Service worker — offline cache. Design Ref: §7.
+// v7: bump cache version to propagate the 정보 탭 확장 (TRIP.info: 비상연락처·항공·준비물·
+// 유의사항·수하물·출입국) + 출국편 KE723→KE5868 정정.
 // v6: bump cache version to force-propagate the Day 1 time fix (KUAS 15:00, 금각사 16:30–17:30).
 // v5: static assets now use stale-while-revalidate (serve cache, refresh in the
 // background) so future deploys auto-propagate within one revisit — no more silent
@@ -6,7 +8,7 @@
 // v4: bump cache version so existing installs pick up the places-filter + day-pill fixes.
 // v3: map tab now uses Google Maps (network-only, cross-origin); app shell + assets
 // (itinerary / places / info) remain fully offline.
-const VERSION = 'v6';
+const VERSION = 'v7';
 const SHELL = `shell-${VERSION}`;
 const RUNTIME = `runtime-${VERSION}`;
 

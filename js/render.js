@@ -138,18 +138,104 @@ export function renderItinerary(trip) {
 
 /* ───────────────────────── info ───────────────────────── */
 
+// common section wrapper (emoji glyph is a literal, title is escaped)
+function infoSection(emoji, title, body) {
+  if (!body) return '';
+  return `<section class="info-sec">
+    <h3 class="info-h"><span class="info-emo" aria-hidden="true">${emoji}</span>${esc(title)}</h3>
+    ${body}
+  </section>`;
+}
+
+const telHref = (tel = '') => tel.replace(/[^0-9+]/g, '');
+
+function renderEmergency(e) {
+  if (!e || !e.tel) return '';
+  const body = `<a class="info-call" href="tel:${esc(telHref(e.tel))}">
+    <span class="call-ic">${icon('phone', 20)}</span>
+    <span class="call-txt"><b>${esc([e.org, e.name].filter(Boolean).join(' '))}</b><span class="call-no">${esc(e.tel)}</span></span>
+  </a>`;
+  return infoSection('🆘', '비상 연락처', body);
+}
+
+function renderFlights(f) {
+  if (!f) return '';
+  const block = (lbl, fl) => fl ? `<div class="fl-block">
+    <div class="fl-no"><span class="fl-tag">${esc(lbl)}</span>${esc(fl.no)}</div>
+    ${fl.route ? `<div class="fl-route">${esc(fl.route)}</div>` : ''}
+    <div class="fl-time">${esc(fl.dep || '')}${fl.arr ? ` → ${esc(fl.arr)} 도착` : ''}</div>
+    ${fl.meet ? `<div class="fl-meet">집결 · ${esc(fl.meet)}</div>` : ''}
+  </div>` : '';
+  return infoSection('✈️', '항공 · 집결', `<div class="fl-grid">${block('출국', f.out)}${block('귀국', f.back)}</div>`);
+}
+
+function renderChecklist(list) {
+  if (!list || !list.length) return '';
+  const items = list.map(it => `<li class="ck-item">
+    <span class="ck-box" aria-hidden="true">${icon('check', 13)}</span>
+    <span class="ck-txt"><b>${esc(it.t)}</b>${it.n ? `<span class="ck-note">${esc(it.n)}</span>` : ''}</span>
+  </li>`).join('');
+  return infoSection('✅', '준비물 체크리스트', `<ul class="checklist">${items}</ul>`);
+}
+
+function renderHotelContact(h) {
+  if (!h) return '';
+  const body = `<div class="hc-card">
+    <div class="hc-name">${esc(h.name)}</div>
+    ${h.addr ? `<div class="hc-addr">🗺️ ${esc(h.addr)}</div>` : ''}
+    ${h.tel ? `<a class="hc-tel" href="tel:${esc(telHref(h.tel))}">${icon('phone', 14)} ${esc(h.tel)}</a>` : ''}
+    ${h.note ? `<div class="hc-note">※ ${esc(h.note)}</div>` : ''}
+  </div>`;
+  return infoSection('🏨', '호텔 (Visit Japan Web 입력용)', body);
+}
+
+function renderNotices(list) {
+  if (!list || !list.length) return '';
+  const items = list.map(it => `<li class="nt-item">
+    <b class="nt-t">${esc(it.t)}</b><span class="nt-n">${esc(it.n)}</span>
+  </li>`).join('');
+  return infoSection('⚠️', '현지 유의사항', `<ul class="notices">${items}</ul>`);
+}
+
+function renderBaggage(b) {
+  if (!b) return '';
+  const banned = (b.cabinBanned || []).map(x => `<span class="bg-chip">${esc(x)}</span>`).join('');
+  return `<details class="info-sec bg-details">
+    <summary class="info-h bg-sum"><span class="info-emo" aria-hidden="true">🧳</span>수하물 규정<span class="bg-caret" aria-hidden="true">▾</span></summary>
+    <div class="bg-body">
+      ${b.checked ? `<p class="bg-row"><b>위탁 수하물</b> ${esc(b.checked)}</p>` : ''}
+      ${banned ? `<p class="bg-row"><b>기내 휴대(위탁 불가)</b></p><div class="bg-chips">${banned}</div>` : ''}
+      ${b.liquid ? `<p class="bg-row"><b>기내 액체류</b> ${esc(b.liquid)}</p>` : ''}
+    </div>
+  </details>`;
+}
+
+function renderEntry(list) {
+  if (!list || !list.length) return '';
+  const items = list.map(x => `<li>${esc(x)}</li>`).join('');
+  return infoSection('🛂', '출입국', `<ol class="entry-list">${items}</ol>`);
+}
+
 export function renderInfo(trip) {
+  const info = trip.info || {};
   const credits = (trip.credits || []).map(c => `<li class="credit">
     <div class="t">${esc(c.title)}</div>
     <div class="l">© ${esc(c.author)} · <a href="${esc(c.licenseUrl)}" target="_blank" rel="noopener">${esc(c.license)}</a>
       · <a href="${esc(c.sourceUrl)}" target="_blank" rel="noopener">Wikimedia Commons</a></div>
   </li>`).join('');
   return `<h2 class="section-title">정보</h2>
-    <p class="lead">일정·장소·정보는 오프라인 동작 · 저작권 안전 자산.</p>
+    <p class="lead">출발 전 확인 · 현지 실무 정보 · 오프라인 동작.</p>
     <div class="note-box">
       이 앱은 설치형 PWA입니다. 한 번 로드하면 비행기·지하철 등 <b>오프라인</b>에서도
       일정·장소·정보를 볼 수 있습니다. <b>지도 탭</b>은 구글 지도를 사용하므로 네트워크 연결이 필요합니다.
     </div>
+    ${renderEmergency(info.emergency)}
+    ${renderFlights(info.flights)}
+    ${renderChecklist(info.checklist)}
+    ${renderHotelContact(info.hotelContact)}
+    ${renderNotices(info.notices)}
+    ${renderBaggage(info.baggage)}
+    ${renderEntry(info.entry)}
     <h3 style="font-family:var(--font-serif);margin:var(--sp-6) 0 var(--sp-2)">이미지 출처 / 라이선스</h3>
     <p class="lead" style="margin-bottom:var(--sp-2)">장소 사진은 Wikimedia Commons의 CC/PD 이미지입니다. CC BY/BY-SA는 저작자 표기가 필요합니다.</p>
     <ul class="credits">${credits || '<li class="credit"><div class="l">번들된 이미지 출처가 여기에 표기됩니다.</div></li>'}</ul>`;
