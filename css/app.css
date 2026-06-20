@@ -375,6 +375,9 @@ main {
   background: color-mix(in srgb, var(--cat-hotel) 14%, transparent); padding: 2px 7px; border-radius: 999px; }
 .sp-tag.warn { color: var(--cat-food); background: color-mix(in srgb, var(--cat-food) 16%, transparent); }
 .sp-bio { font-size: 13px; color: var(--text); margin: var(--sp-3) 0 0; }
+.sp-link { display: inline-block; margin-top: var(--sp-2); font-size: 12.5px; font-weight: 600;
+  color: var(--accent); text-decoration: none; }
+.sp-link:hover { text-decoration: underline; }
 .sp-topic { font-size: 13.5px; font-weight: 600; margin-top: var(--sp-3);
   border-top: 1px solid var(--line); padding-top: var(--sp-3); }
 .sp-topic-en { display: block; font-size: 12px; font-weight: 400; color: var(--text-dim); margin-top: 2px; font-style: italic; }

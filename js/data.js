@@ -163,7 +163,9 @@ export const TRIP = {
         id: 'sato', country: 'jp',
         name: '사토 요시미치 (佐藤 嘉倫, Yoshimichi Sato)',
         affil: 'KUAS 인문학부 교수 · 학부장(Dean)',
-        bio: '저명한 사회학자. 일본 사회학계에서 사회계층·불평등 연구의 권위자로 평가받으며, 사회적 불평등·사회자본(social capital)·사회변동을 연구.',
+        bio: '일본의 저명한 사회학자. 전공은 사회자본(social capital) 이론으로, 인간관계(사회적 연결)가 긍정·부정 양면의 효과를 가진다는 점에 주목하며, 그 연장에서 사회적 고립·외로움(social isolation)의 발생 메커니즘을 핵심 주제로 연구한다. 일본 과학기술진흥기구(JST) RISTEX ‘SOLVE for SDGs — 사회적 고립·고독 예방과 다양한 사회적 네트워크 형성’ 프로그램 어드바이저. 사회계층·불평등, 사회변동 연구의 권위자.',
+        profileUrl: 'https://www.jst.go.jp/ristex/koritsu/en/advisers/10.html',
+        profileLabel: '공식 프로필 (JST RISTEX) ↗',
         talkTitle: 'Can Humans Understand AI? — Toward an Interpretive Sociology of Human–AI Interaction',
         summary: [
           'ChatGPT 이후 생성형 AI가 사회적 상호작용의 새로운 ‘행위자’로 등장 → “인간은 AI를 이해할 수 있는가?”라는 사회학적 질문 제기.',

@@ -42,6 +42,15 @@ initRouter((tab) => {
 
 // PWA service worker (FR-6)
 if ('serviceWorker' in navigator) {
+  // Auto-reload once when a new SW takes control. Prevents a stale JS bundle from
+  // running under a freshly fetched index.html after a deploy (new SW does
+  // skipWaiting + clients.claim → 'controllerchange' → reload to consistent assets).
+  let swReloaded = false;
+  navigator.serviceWorker.addEventListener('controllerchange', () => {
+    if (swReloaded) return;
+    swReloaded = true;
+    window.location.reload();
+  });
   window.addEventListener('load', () => {
     navigator.serviceWorker.register('./sw.js').catch(err =>
       console.warn('SW registration failed:', err));

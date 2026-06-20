@@ -191,6 +191,7 @@ function speakerCard(s) {
       </div>
     </header>
     ${s.bio ? `<p class="sp-bio">${esc(s.bio)}</p>` : ''}
+    ${s.profileUrl ? `<a class="sp-link" href="${esc(s.profileUrl)}" target="_blank" rel="noopener">${esc(s.profileLabel || '공식 프로필 ↗')}</a>` : ''}
     ${topic}
     ${isKeynote ? satoTalk(s) : ''}
   </article>`;
