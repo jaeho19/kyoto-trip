@@ -1,4 +1,5 @@
 // Service worker — offline cache. Design Ref: §7.
+// v10: 사토 교수 사진(forum-sato.webp, 행사 제공) 추가 + precache.
 // v9: 사토 교수 약력 보강(JST RISTEX 사회자본·사회적고립 연구) + 공식 프로필 링크.
 //     main.js에 controllerchange 자동 새로고침 추가 → 배포 후 캐시 불일치(새 HTML+옛 JS) 방지.
 // v8: 포럼 탭 신설(식순·연사·사토 강연) + forum-hero/forum-sato-material 이미지 precache.
@@ -11,7 +12,7 @@
 // v4: bump cache version so existing installs pick up the places-filter + day-pill fixes.
 // v3: map tab now uses Google Maps (network-only, cross-origin); app shell + assets
 // (itinerary / places / info) remain fully offline.
-const VERSION = 'v9';
+const VERSION = 'v10';
 const SHELL = `shell-${VERSION}`;
 const RUNTIME = `runtime-${VERSION}`;
 
@@ -22,7 +23,7 @@ const PRECACHE = [
   './js/icons.js', './js/router.js', './js/map.js',
   './js/trip-utils.js', './js/places.js', './js/itinerary.js',
   './fonts/fonts.css', './images/uos-logo.png', './images/uos-logo-white.png',
-  './images/forum-hero.webp', './images/forum-sato-material.webp',
+  './images/forum-hero.webp', './images/forum-sato-material.webp', './images/forum-sato.webp',
 ];
 
 self.addEventListener('install', (e) => {

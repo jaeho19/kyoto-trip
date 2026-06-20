@@ -161,8 +161,9 @@ function forumProgram(program = []) {
   return `<ol class="forum-program">${rows}</ol>`;
 }
 
-function avatar(name = '?') {
-  return `<span class="sp-avatar" aria-hidden="true">${esc(String(name).trim().charAt(0))}</span>`;
+function avatar(s) {
+  if (s.photo) return `<img class="sp-avatar sp-photo" src="${esc(s.photo)}" alt="${esc(s.name)}" loading="lazy" />`;
+  return `<span class="sp-avatar" aria-hidden="true">${esc(String(s.name || '?').trim().charAt(0))}</span>`;
 }
 
 function satoTalk(s) {
@@ -184,7 +185,7 @@ function speakerCard(s) {
   const isKeynote = s.id === 'sato';
   return `<article class="speaker${isKeynote ? ' keynote' : ''}">
     <header class="sp-head">
-      ${avatar(s.name)}
+      ${avatar(s)}
       <div class="sp-id">
         <div class="sp-name">${flag} ${esc(s.name)}${role}${note}</div>
         ${s.affil ? `<div class="sp-affil">${esc(s.affil)}</div>` : ''}
