@@ -1,4 +1,5 @@
 // Service worker — offline cache. Design Ref: §7.
+// v13: 출국편 KE5868→KE0723 정정(data.js 3곳).
 // v12: 천선정·주효은 교수 발표 주제 영문 제목으로 갱신(식순·연사 카드).
 // v11: 장원호·천선정·주효은 교수 사진 + 약력·프로필 링크 보강 + precache.
 // v10: 사토 교수 사진(forum-sato.webp, 행사 제공) 추가 + precache.
@@ -14,7 +15,7 @@
 // v4: bump cache version so existing installs pick up the places-filter + day-pill fixes.
 // v3: map tab now uses Google Maps (network-only, cross-origin); app shell + assets
 // (itinerary / places / info) remain fully offline.
-const VERSION = 'v12';
+const VERSION = 'v13';
 const SHELL = `shell-${VERSION}`;
 const RUNTIME = `runtime-${VERSION}`;
 

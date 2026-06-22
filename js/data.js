@@ -8,7 +8,7 @@ const REP = new Set(REPRESENTATIVE);
 const PLACES = {
   // --- transport ---
   kix: { name: '간사이 국제공항 (KIX)', cat: 'transport', lat: 34.4348, lng: 135.2440,
-    area: '오사카만', desc: '여행의 관문. 1일차 KE5868편 도착(인천 09:35 → 관서 11:20), 3일차 LJ236편 귀국(관서 16:05 → 인천 18:10). 일본 전자입국 VISIT JAPAN 72시간 전 등록.' },
+    area: '오사카만', desc: '여행의 관문. 1일차 KE0723편 도착(인천 09:35 → 관서 11:20), 3일차 LJ236편 귀국(관서 16:05 → 인천 18:10). 일본 전자입국 VISIT JAPAN 72시간 전 등록.' },
 
   // --- hotels ---
   hotel_kyoto: { name: '호텔 몬트레 교토', cat: 'hotel', lat: 35.00797, lng: 135.75956,
@@ -77,7 +77,7 @@ export const TRIP = {
   places,
   itinerary: [
     { day: 1, date: '6/24 (수)', label: '인천 → 관서 · 교토첨단과학대 · 금각사', items: [
-      { time: '11:20', placeKey: 'kix', note: 'KE5868 인천 09:35 출발 → 관서공항 도착, 전용버스(45인승) 탑승' },
+      { time: '11:20', placeKey: 'kix', note: 'KE0723 인천 09:35 출발 → 관서공항 도착, 전용버스(45인승) 탑승' },
       { time: '12:30', placeKey: 'gochisomura', note: '중식 (일정식, 예약완료)' },
       { time: '15:00', placeKey: 'kuas', note: '★ 방문지 — 교토첨단과학대학 우즈마사 캠퍼스' },
       { time: '16:30', placeKey: 'kinkakuji', note: '16:30–17:30 관람' },
@@ -106,7 +106,7 @@ export const TRIP = {
       org: '(주)마스터스투어', name: '장현철 사장', tel: '010-3386-3950',
     },
     flights: {
-      out: { no: 'KE5868', route: '인천 T2 → 관서(KIX)', dep: '06/24(수) 09:35', arr: '11:20',
+      out: { no: 'KE0723', route: '인천 T2 → 관서(KIX)', dep: '06/24(수) 09:35', arr: '11:20',
              meet: '07:00 인천 T2 3층 B·C·D 수속 / 09:00 게이트 최종집결' },
       back: { no: 'LJ236', route: '관서(KIX) → 인천 T2', dep: '06/26(금) 16:05', arr: '18:10' },
     },
